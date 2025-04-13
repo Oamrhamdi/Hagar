@@ -322,6 +322,68 @@
                 min-width: auto;
             }
         }
+
+        /* إضافات جديدة لتحليل الأسماء */
+        .name-analysis {
+            margin-top: 20px;
+        }
+        
+        .analysis-section {
+            background: rgba(66, 66, 66, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid #D4AF37;
+        }
+        
+        .analysis-title {
+            color: #F4D03F;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .letters-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .letter-badge {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .letter-badge .value {
+            font-size: 12px;
+            margin-right: 5px;
+            color: #F4D03F;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .show-more {
+            background: transparent;
+            color: #D4AF37;
+            border: 1px solid #D4AF37;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .show-more:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -397,7 +459,34 @@
             <button id="calculate-letters">احسب أسرار الاسم</button>
             <div id="letters-result" class="result" style="display: none;">
                 <h3>نتيجة أسرار الاسم</h3>
-                <p id="letters-output"></p>
+                <div id="letters-output"></div>
+                <div id="name-analysis" class="name-analysis hidden">
+                    <div class="analysis-section">
+                        <div class="analysis-title">تحليل كل حرف في الاسم</div>
+                        <div id="letters-analysis"></div>
+                    </div>
+                    
+                    <div class="analysis-section">
+                        <div class="analysis-title">تحليل عدد الأحرف</div>
+                        <div id="letters-count-analysis"></div>
+                    </div>
+                    
+                    <div class="analysis-section">
+                        <div class="analysis-title">الأحرف المكررة في الاسم</div>
+                        <div id="repeated-letters"></div>
+                    </div>
+                    
+                    <div class="analysis-section">
+                        <div class="analysis-title">الأحرف النادرة في الاسم</div>
+                        <div id="rare-letters"></div>
+                    </div>
+                    
+                    <div class="analysis-section">
+                        <div class="analysis-title">الأحرف المميزة في الاسم</div>
+                        <div id="special-letters"></div>
+                    </div>
+                </div>
+                <button id="show-more-analysis" class="show-more hidden">إظهار المزيد من التحليل</button>
             </div>
         </div>
         
@@ -431,10 +520,86 @@
     </div>
     
     <script>
+        // تخزين الأسرار المختلفة لكل قسم
+        const secretsData = {
+            letters: {
+                meanings: [
+                    "تحمل في طياتها أسراراً عميقة عن شخصيتك ومستقبلك",
+                    "تكشف عن جوانب خفية في حياتك ومصيرك",
+                    "ترمز إلى طاقات روحية تؤثر على حياتك",
+                    "تعكس قدراتك الكامنة وتحدياتك المستقبلية",
+                    "تحوي رموزاً قديمة تكشف عن مسار حياتك"
+                ],
+                personalities: [
+                    "شخصية قوية تميل إلى القيادة وتحقيق الإنجازات الكبيرة",
+                    "شخصية متوازنة تحب التعلم والتطور ولديها حكمة",
+                    "شخصية إبداعية تميل إلى الفنون والعلاقات الإنسانية",
+                    "شخصية عملية تهتم بالتفاصيل وتحب النظام والاستقرار",
+                    "شخصية روحانية تهتم بالجانب المعنوي والحكمة"
+                ]
+            },
+            numbers: {
+                meanings: [
+                    "تحمل دلالات روحية وتأثيرات على حياتك",
+                    "ترمز إلى مراحل مهمة في رحلتك الشخصية",
+                    "تكشف عن فرص وتحديات في مستقبلك",
+                    "تعكس طاقات كامنة في شخصيتك",
+                    "تحوي أسراراً عن علاقاتك وحياتك العملية"
+                ],
+                advices: [
+                    "استغل هذا الرقم في اتخاذ قراراتك المهمة",
+                    "هذا الرقم يشير إلى فترة تغيير إيجابي في حياتك",
+                    "حاول أن تتعلم من الدروس التي يرمز إليها هذا الرقم",
+                    "استخدم طاقة هذا الرقم لتحقيق أهدافك",
+                    "هذا الرقم يحمل رسالة مهمة لك من الكون"
+                ]
+            },
+            ages: {
+                stages: [
+                    "مرحلة مهمة في رحلتك الشخصية",
+                    "فترة تحول وتغيير في حياتك",
+                    "مرحلة تحقيق وإنجازات",
+                    "وقت للتأمل وإعادة التقييم",
+                    "مرحلة اكتشاف الذات والتطور"
+                ],
+                advices: [
+                    "هذا العمر يحمل فرصاً ذهبية لتطوير نفسك",
+                    "استغل هذه المرحلة لبناء أساس متين لمستقبلك",
+                    "هذا وقت مناسب لاتخاذ قرارات جريئة",
+                    "ركز على تطوير مهاراتك في هذه المرحلة",
+                    "استمتع بهذه المرحلة وتعلم من تجاربك"
+                ]
+            }
+        };
+
+        // متغيرات لتتبع النسخة الحالية من الأسرار
+        let currentSecretsVersion = {
+            letters: 0,
+            numbers: 0,
+            ages: 0
+        };
+
         // تبديل التبويبات
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // تغيير الأسرار عند الخروج من التبويب الحالي
+                const activeTab = document.querySelector('.tab.active');
+                if (activeTab) {
+                    const activeTabId = activeTab.getAttribute('data-tab');
+                    if (activeTabId !== tabId && activeTabId !== 'single-letter') {
+                        // تغيير نسخة الأسرار للتبويب السابق
+                        changeSecretsVersion(activeTabId);
+                    }
+                }
+                
+                // تغيير الأسرار عند الدخول إلى تبويب جديد (عدا سر الحرف)
+                if (tabId !== 'single-letter') {
+                    changeSecretsVersion(tabId);
+                }
+                
                 // إزالة الفعالية من جميع التبويبات
                 tabs.forEach(t => t.classList.remove('active'));
                 // إضافة الفعالية للتبويب المحدد
@@ -446,11 +611,21 @@
                 });
                 
                 // إظهار محتوى التبويب المحدد
-                const tabId = tab.getAttribute('data-tab');
                 document.getElementById(tabId).classList.add('active');
             });
         });
-        
+
+        // تغيير نسخة الأسرار المستخدمة
+        function changeSecretsVersion(tabId) {
+            if (tabId === 'letters') {
+                currentSecretsVersion.letters = (currentSecretsVersion.letters + 1) % secretsData.letters.meanings.length;
+            } else if (tabId === 'numbers') {
+                currentSecretsVersion.numbers = (currentSecretsVersion.numbers + 1) % secretsData.numbers.meanings.length;
+            } else if (tabId === 'ages') {
+                currentSecretsVersion.ages = (currentSecretsVersion.ages + 1) % secretsData.ages.stages.length;
+            }
+        }
+
         // اختيار الحرف من الشبكة
         const letterBoxes = document.querySelectorAll('.letter-box');
         letterBoxes.forEach(box => {
@@ -559,27 +734,164 @@
             const name = document.getElementById('name').value.trim();
             const resultDiv = document.getElementById('letters-result');
             const output = document.getElementById('letters-output');
+            const nameAnalysis = document.getElementById('name-analysis');
+            const showMoreBtn = document.getElementById('show-more-analysis');
             
             if (name === '') {
                 output.textContent = 'الرجاء إدخال اسمك';
                 resultDiv.style.display = 'block';
+                nameAnalysis.classList.add('hidden');
+                showMoreBtn.classList.add('hidden');
                 return;
             }
             
-            // حساب الق��مة العددية للاسم
+            // حساب القيمة العددية للاسم
             const numericalValue = calculateNumericalValue(name);
             
-            // تحليل الشخصية بناء على الاسم
-            const personalityAnalysis = analyzePersonality(name);
+            // تحليل الشخصية بناء على الاسم (مع تغيير الأسرار)
+            const version = currentSecretsVersion.letters;
+            const personalityAnalysis = analyzePersonality(name, version);
             
             output.innerHTML = `
                 <strong>الاسم:</strong> ${name}<br>
                 <strong>القيمة العددية:</strong> ${numericalValue}<br>
-                <strong>تحليل الشخصية:</strong> ${personalityAnalysis}
+                <strong>تحليل الشخصية:</strong> ${personalityAnalysis}<br>
+                <strong>السر الخاص:</strong> ${secretsData.letters.meanings[version]}
             `;
             
+            // تحليل مفصل للأحرف
+            analyzeNameLetters(name);
+            
             resultDiv.style.display = 'block';
+            nameAnalysis.classList.remove('hidden');
+            showMoreBtn.classList.remove('hidden');
         });
+        
+        // تحليل مفصل لأحرف الاسم
+        function analyzeNameLetters(name) {
+            const lettersAnalysis = document.getElementById('letters-analysis');
+            const lettersCountAnalysis = document.getElementById('letters-count-analysis');
+            const repeatedLetters = document.getElementById('repeated-letters');
+            const rareLetters = document.getElementById('rare-letters');
+            const specialLetters = document.getElementById('special-letters');
+            
+            // تحليل كل حرف في الاسم
+            let lettersHTML = '<div class="letters-list">';
+            const lettersCount = {};
+            
+            for (let char of name) {
+                if (char === ' ') continue;
+                
+                const value = getLetterValue(char);
+                const meaning = getLetterMeaning(char, value).split(' - ')[1] || '';
+                
+                lettersHTML += `
+                    <div class="letter-badge">
+                        <span class="value">${value}</span>
+                        ${char}: ${meaning.substring(0, 30)}...
+                    </div>
+                `;
+                
+                // حساب تكرار الأحرف
+                lettersCount[char] = (lettersCount[char] || 0) + 1;
+            }
+            lettersHTML += '</div>';
+            lettersAnalysis.innerHTML = lettersHTML;
+            
+            // تحليل عدد أحرف الاسم
+            const nameLength = name.replace(/\s/g, '').length;
+            let lengthAnalysis = '';
+            
+            if (nameLength <= 3) {
+                lengthAnalysis = `اسم قصير (${nameLength} أحرف) يدل على الشخصية المباشرة والحاسمة التي تفضل الإيجاز والوضوح.`;
+            } else if (nameLength <= 6) {
+                lengthAnalysis = `اسم متوسط الطول (${nameLength} أحرف) يعكس شخصية متوازنة تجمع بين الوضوح والتعقيد.`;
+            } else {
+                lengthAnalysis = `اسم طويل (${nameLength} أحرف) يشير إلى شخصية عميقة ومتعددة الأبعاد تحب التفاصيل.`;
+            }
+            
+            lettersCountAnalysis.innerHTML = lengthAnalysis;
+            
+            // الأحرف المكررة
+            let repeatedHTML = '<div class="letters-list">';
+            let hasRepeated = false;
+            
+            for (let char in lettersCount) {
+                if (lettersCount[char] > 1) {
+                    hasRepeated = true;
+                    repeatedHTML += `
+                        <div class="letter-badge">
+                            <span class="value">${lettersCount[char]}</span>
+                            ${char} (${getLetterValue(char)})
+                        </div>
+                    `;
+                }
+            }
+            
+            if (!hasRepeated) {
+                repeatedHTML = '<p>لا توجد أحرف مكررة في الاسم، وهذا يدل على شخصية متنوعة المواهب.</p>';
+            } else {
+                repeatedHTML += '</div><p>الأحرف المكررة في الاسم تشير إلى صفات مميزة في شخصيتك.</p>';
+            }
+            
+            repeatedLetters.innerHTML = repeatedHTML;
+            
+            // الأحرف النادرة (قيمة عالية)
+            let rareHTML = '<div class="letters-list">';
+            const rareLettersList = [];
+            const rareThreshold = 500; // قيمة عالية تعتبر نادرة
+            
+            for (let char of name) {
+                if (char === ' ') continue;
+                
+                const value = getLetterValue(char);
+                if (value >= rareThreshold && !rareLettersList.includes(char)) {
+                    rareLettersList.push(char);
+                    rareHTML += `
+                        <div class="letter-badge">
+                            <span class="value">${value}</span>
+                            ${char}
+                        </div>
+                    `;
+                }
+            }
+            
+            if (rareLettersList.length === 0) {
+                rareHTML = '<p>لا توجد أحرف نادرة في الاسم، وهذا يدل على شخصية عملية وواقعية.</p>';
+            } else {
+                rareHTML += '</div><p>الأحرف النادرة في الاسم تشير إلى صفات استثنائية في شخصيتك.</p>';
+            }
+            
+            rareLetters.innerHTML = rareHTML;
+            
+            // الأحرف المميزة (حسب المعاني)
+            let specialHTML = '<div class="letters-list">';
+            const specialLettersList = [];
+            const specialLettersSet = new Set(['ا', 'م', 'ر', 'س', 'ع', 'ق', 'ك', 'ي']);
+            
+            for (let char of name) {
+                if (char === ' ') continue;
+                
+                if (specialLettersSet.has(char) && !specialLettersList.includes(char)) {
+                    specialLettersList.push(char);
+                    const value = getLetterValue(char);
+                    specialHTML += `
+                        <div class="letter-badge">
+                            <span class="value">${value}</span>
+                            ${char}
+                        </div>
+                    `;
+                }
+            }
+            
+            if (specialLettersList.length === 0) {
+                specialHTML = '<p>لا توجد أحرف مميزة في الاسم، وهذا يدل على شخصية فريدة بطريقتها الخاصة.</p>';
+            } else {
+                specialHTML += '</div><p>الأحرف المميزة في الاسم تشير إلى صفات قيادية وإبداعية.</p>';
+            }
+            
+            specialLetters.innerHTML = specialHTML;
+        }
         
         // حساب أسرار الأرقام
         document.getElementById('calculate-numbers').addEventListener('click', () => {
@@ -594,13 +906,15 @@
             }
             
             const num = parseInt(number);
-            const numberSecrets = getNumberSecrets(num);
+            const version = currentSecretsVersion.numbers;
+            const numberSecrets = getNumberSecrets(num, version);
             
             output.innerHTML = `
                 <strong>الرقم:</strong> ${num}<br>
                 <strong>الدلالة:</strong> ${numberSecrets.meaning}<br>
                 <strong>في علم الأعداد:</strong> ${numberSecrets.numerology}<br>
-                <strong>نصيحة:</strong> ${numberSecrets.advice}
+                <strong>نصيحة:</strong> ${numberSecrets.advice}<br>
+                <strong>السر الخاص:</strong> ${secretsData.numbers.meanings[version]}
             `;
             
             resultDiv.style.display = 'block';
@@ -637,17 +951,31 @@
                 return;
             }
             
-            const ageSecrets = getAgeSecrets(age);
+            const version = currentSecretsVersion.ages;
+            const ageSecrets = getAgeSecrets(age, version);
             
             output.innerHTML = `
                 <strong>عمرك:</strong> ${age} سنة<br>
                 <strong>مرحلة الحياة:</strong> ${ageSecrets.lifeStage}<br>
                 <strong>التحديات:</strong> ${ageSecrets.challenges}<br>
                 <strong>الفرص:</strong> ${ageSecrets.opportunities}<br>
-                <strong>نصيحة:</strong> ${ageSecrets.advice}
+                <strong>نصيحة:</strong> ${ageSecrets.advice}<br>
+                <strong>السر الخاص:</strong> ${secretsData.ages.stages[version]}
             `;
             
             resultDiv.style.display = 'block';
+        });
+        
+        // إظهار المزيد من التحليل
+        document.getElementById('show-more-analysis').addEventListener('click', function() {
+            const nameAnalysis = document.getElementById('name-analysis');
+            if (nameAnalysis.classList.contains('hidden')) {
+                nameAnalysis.classList.remove('hidden');
+                this.textContent = 'إخفاء التحليل المفصل';
+            } else {
+                nameAnalysis.classList.add('hidden');
+                this.textContent = 'إظهار المزيد من التحليل';
+            }
         });
         
         // الدوال المساعدة
@@ -670,26 +998,19 @@
             return total;
         }
         
-        function analyzePersonality(name) {
+        function analyzePersonality(name, version = 0) {
             const length = name.length;
             const numericalValue = calculateNumericalValue(name);
             
-            if (numericalValue > 1000) {
-                return "شخصية طموحة وقوية، تميل إلى القيادة وتحقيق الإنجازات الكبيرة. لديها طاقة عالية وقدرة على التأثير في الآخرين.";
-            } else if (numericalValue > 500) {
-                return "شخصية متوازنة، تحب التعلم والتطور، لديها حكمة وذكاء اجتماعي. تميل إلى البحث عن المعرفة والحكمة في الحياة.";
-            } else if (numericalValue > 200) {
-                return "شخصية إبداعية، تميل إلى الفنون والعلاقات الإنسانية، عاطفية وحساسة. لديها قدرة على فهم مشاعر الآخرين والتعاطف معهم.";
-            } else {
-                return "شخصية عملية، واقعية، تهتم بالتفاصيل وتحب النظام والاستقرار. تفضل الخطط الواضحة والأهداف المحددة.";
-            }
+            const personalities = secretsData.letters.personalities;
+            return personalities[version % personalities.length];
         }
         
-        function getNumberSecrets(number) {
+        function getNumberSecrets(number, version = 0) {
             const secrets = {
                 1: {
                     meaning: "البدايات، القيادة، الاستقلالية",
-                    numerology: "رقم الإبداع ��الثقة بالنفس",
+                    numerology: "رقم الإبداع والثقة بالنفس",
                     advice: "كن واثقًا من نفسك وابدأ مشاريع جديدة، هذا وقت مناسب للبدايات الجديدة"
                 },
                 2: {
@@ -739,62 +1060,70 @@
                 reducedNumber = reducedNumber.toString().split('').reduce((sum, digit) => sum + parseInt(digit), 0);
             }
             
-            return secrets[reducedNumber] || {
+            const result = secrets[reducedNumber] || {
                 meaning: "غير معروف",
                 numerology: "غير معروف",
                 advice: "جرب رقمًا آخر، كل رقم يحمل رسالة خاصة"
             };
+            
+            // إضافة نصيحة مختلفة حسب النسخة
+            const advices = secretsData.numbers.advices;
+            result.advice = advices[version % advices.length];
+            
+            return result;
         }
         
-        function getAgeSecrets(age) {
+        function getAgeSecrets(age, version = 0) {
+            const advices = secretsData.ages.advices;
+            
             if (age < 5) {
                 return {
                     lifeStage: "مرحلة الطفولة المبكرة",
                     challenges: "اكتشاف العالم وتعلم الأساسيات",
                     opportunities: "تطوير المهارات الحركية واللغوية",
-                    advice: "هذه المرحلة حاسمة لتطوير الشخصية، احرص على توفير بيئة آمنة ومحفزة"
+                    advice: advices[version % advices.length]
                 };
             } else if (age < 13) {
                 return {
                     lifeStage: "مرحلة الطفولة",
                     challenges: "التعلم الأساسي وتكوين الشخصية",
                     opportunities: "اكتشاف المواهب والاهتمامات",
-                    advice: "شجع الطفل على اكتشاف مواهبه وتجربة أنشطة متنوعة"
+                    advice: advices[version % advices.length]
                 };
             } else if (age < 20) {
                 return {
                     lifeStage: "مرحلة المراهقة",
                     challenges: "تكوين الهوية والاستقلالية",
                     opportunities: "التعلم السريع وتجربة أشياء جديدة",
-                    advice: "كن صبوراً مع نفسك، هذه المرحلة انتقالية ومهمة لتشكيل شخصيتك"
+                    advice: advices[version % advices.length]
                 };
             } else if (age < 35) {
                 return {
                     lifeStage: "مرحلة الشباب",
                     challenges: "بناء المستقبل المهني والعلاقات",
                     opportunities: "تحقيق الإنجازات وبناء الأسرة",
-                    advice: "استثمر في تعليمك وتطوير مهاراتك، هذه أفضل سنوات البناء"
+                    advice: advices[version % advices.length]
                 };
             } else if (age < 50) {
                 return {
                     lifeStage: "منتصف العمر",
                     challenges: "تحقيق التوازن بين العمل والأسرة",
                     opportunities: "التطور المهني والاستقرار المادي",
-                    advice: "حافظ على توازنك بين العمل والحياة الشخصية، ولا تهمل صحتك"
+                    advice: advices[version % advices.length]
                 };
             } else if (age < 65) {
                 return {
                     lifeStage: "مرحلة النضج",
                     challenges: "التكيف مع التغيرات الجسدية",
                     opportunities: "توجيه الخبرة لمساعدة الآخرين",
-                    advice: "استفد من خبراتك في إرشاد الأجيال الجديدة، ولا تتوقف عن التعلم"
+                    advice: advices[version % advices.length]
                 };
             } else {
                 return {
                     lifeStage: "مرحلة الشيخوخة",
                     challenges: "الحفاظ على الصحة والنشاط",
                     opportunities: "توارث الخبرة والاستمتاع بالإنجازات",
-                    advice: "حافظ على نشاطك البدني والذهني، واستمتع بثمار عمرك من إنجازات"
+                    advice: advices[version % advices.length]
                 };
             }
         }
