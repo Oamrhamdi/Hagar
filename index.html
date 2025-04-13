@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أسرار الحروف والأرقام والأعمار</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            line-height: 1.8;
+            background-image: radial-gradient(circle at center, rgba(212,175,55,0.1) 0%, rgba(0,0,0,0.9) 70%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 15px;
+            padding-bottom: 30px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #212121 0%, #424242 100%);
+            color: #D4AF37;
+            text-align: center;
+            padding: 25px 0;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #D4AF37, #F4D03F, #D4AF37);
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #b0b0b0;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 25px;
+            background: rgba(33, 33, 33, 0.8);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 18px 10px;
+            width: 25%;
+            min-width: 100px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            font-weight: 500;
+            color: #b0b0b0;
+        }
+        
+        .tab.active {
+            color: #D4AF37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #D4AF37, #F4D03F, #D4AF37);
+        }
+        
+        .tab:hover {
+            color: #F4D03F;
+        }
+        
+        .tab-content {
+            display: none;
+            background: rgba(33, 33, 33, 0.8);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            margin-bottom: 25px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #D4AF37;
+            font-size: 16px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 14px;
+            background: rgba(66, 66, 66, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            font-size: 16px;
+            color: #e0e0e0;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+        
+        input::placeholder {
+            color: #757575;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            color: #121212;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: all 0.3s;
+            font-weight: 700;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(66, 66, 66, 0.3);
+            border-radius: 8px;
+            border-right: 4px solid #D4AF37;
+            animation: fadeIn 0.5s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .result h3 {
+            color: #F4D03F;
+            margin-bottom: 15px;
+            font-size: 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .result p {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        .letter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .letter-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #D4AF37;
+        }
+        
+        .letter-box:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .letter-details {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(33, 33, 33, 0.8);
+            border-radius: 8px;
+            border-left: 4px solid #D4AF37;
+            display: none;
+        }
+        
+        .letter-title {
+            font-size: 28px;
+            color: #D4AF37;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .letter-value {
+            font-size: 18px;
+            color: #F4D03F;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .letter-meaning {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        /* تأثيرات إضافية */
+        .gold-text {
+            background: linear-gradient(to right, #D4AF37, #F4D03F, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .glow {
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            }
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                width: 50%;
+                padding: 15px 5px;
+                font-size: 14px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .letter-grid {
+                grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            }
+            
+            .letter-box {
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .tab-content {
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tab {
+                width: 50%;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="glow">
+            <h1 class="gold-text">أسرار الحروف والأرقام والأعمار</h1>
+            <p class="subtitle">اكتشف الأسرار الخفية في الحروف والأرقام والأعمار</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="single-letter">سر الحرف</div>
+            <div class="tab" data-tab="letters">أسرار الأسماء</div>
+            <div class="tab" data-tab="numbers">أسرار الأرقام</div>
+            <div class="tab" data-tab="ages">أسرار الأعمار</div>
+        </div>
+        
+        <div id="single-letter" class="tab-content active">
+            <div class="input-group">
+                <label for="letter-input">اختر حرفاً أو اكتب حرفاً واحداً:</label>
+                <input type="text" id="letter-input" maxlength="1" placeholder="اكتب حرفاً عربياً واحداً">
+            </div>
+            
+            <div class="letter-grid">
+                <div class="letter-box" data-letter="ا">ا</div>
+                <div class="letter-box" data-letter="ب">ب</div>
+                <div class="letter-box" data-letter="ج">ج</div>
+                <div class="letter-box" data-letter="د">د</div>
+                <div class="letter-box" data-letter="ه">ه</div>
+                <div class="letter-box" data-letter="و">و</div>
+                <div class="letter-box" data-letter="ز">ز</div>
+                <div class="letter-box" data-letter="ح">ح</div>
+                <div class="letter-box" data-letter="ط">ط</div>
+                <div class="letter-box" data-letter="ي">ي</div>
+                <div class="letter-box" data-letter="ك">ك</div>
+                <div class="letter-box" data-letter="ل">ل</div>
+                <div class="letter-box" data-letter="م">م</div>
+                <div class="letter-box" data-letter="ن">ن</div>
+                <div class="letter-box" data-letter="س">س</div>
+                <div class="letter-box" data-letter="ع">ع</div>
+                <div class="letter-box" data-letter="ف">ف</div>
+                <div class="letter-box" data-letter="ص">ص</div>
+                <div class="letter-box" data-letter="ق">ق</div>
+                <div class="letter-box" data-letter="ر">ر</div>
+                <div class="letter-box" data-letter="ش">ش</div>
+                <div class="letter-box" data-letter="ت">ت</div>
+                <div class="letter-box" data-letter="ث">ث</div>
+                <div class="letter-box" data-letter="خ">خ</div>
+                <div class="letter-box" data-letter="ذ">ذ</div>
+                <div class="letter-box" data-letter="ض">ض</div>
+                <div class="letter-box" data-letter="ظ">ظ</div>
+                <div class="letter-box" data-letter="غ">غ</div>
+                <div class="letter-box" data-letter="ء">ء</div>
+                <div class="letter-box" data-letter="ؤ">ؤ</div>
+                <div class="letter-box" data-letter="ئ">ئ</div>
+                <div class="letter-box" data-letter="ى">ى</div>
+                <div class="letter-box" data-letter="ة">ة</div>
+            </div>
+            
+            <div id="letter-details" class="letter-details">
+                <div class="letter-title" id="selected-letter">ا</div>
+                <div class="letter-value">القيمة: <span id="letter-value">1</span></div>
+                <div class="letter-meaning" id="letter-meaning">
+                    الحرف الأول في الأبجدية العربية، يرمز إلى البدايات والوحدة والقيادة.
+                </div>
+            </div>
+        </div>
+        
+        <div id="letters" class="tab-content">
+            <div class="input-group">
+                <label for="name">أدخل اسمك:</label>
+                <input type="text" id="name" placeholder="اكتب اسمك هنا">
+            </div>
+            <button id="calculate-letters">احسب أسرار الاسم</button>
+            <div id="letters-result" class="result" style="display: none;">
+                <h3>نتيجة أسرار الاسم</h3>
+                <p id="letters-output"></p>
+            </div>
+        </div>
+        
+        <div id="numbers" class="tab-content">
+            <div class="input-group">
+                <label for="number">أدخل رقمك المفضل:</label>
+                <input type="number" id="number" placeholder="اكتب رقمك المفضل هنا">
+            </div>
+            <button id="calculate-numbers">احسب أسرار الرقم</button>
+            <div id="numbers-result" class="result" style="display: none;">
+                <h3>نتيجة أسرار الأرقام</h3>
+                <p id="numbers-output"></p>
+            </div>
+        </div>
+        
+        <div id="ages" class="tab-content">
+            <div class="input-group">
+                <label for="birth-year">سنة الميلاد:</label>
+                <input type="number" id="birth-year" placeholder="مثال: 1990">
+            </div>
+            <div class="input-group">
+                <label for="current-year">السنة الحالية (اختياري):</label>
+                <input type="number" id="current-year" placeholder="اتركه فارغاً لحساب السنة الحالية تلقائياً">
+            </div>
+            <button id="calculate-age">احسب أسرار العمر</button>
+            <div id="age-result" class="result" style="display: none;">
+                <h3>نتيجة أسرار العمر</h3>
+                <p id="age-output"></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // تبديل التبويبات
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // إزالة الفعالية من جميع التبويبات
+                tabs.forEach(t => t.classList.remove('active'));
+                // إضافة الفعالية للتبويب المحدد
+                tab.classList.add('active');
+                
+                // إخفاء جميع محتويات التبويبات
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // إظهار محتوى التبويب المحدد
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // اختيار الحرف من الشبكة
+        const letterBoxes = document.querySelectorAll('.letter-box');
+        letterBoxes.forEach(box => {
+            box.addEventListener('click', () => {
+                const letter = box.getAttribute('data-letter');
+                document.getElementById('letter-input').value = letter;
+                showLetterDetails(letter);
+            });
+        });
+        
+        // إدخال الحرف يدوياً
+        document.getElementById('letter-input').addEventListener('input', function() {
+            const letter = this.value.trim();
+            if (letter.length === 1 && isArabicLetter(letter)) {
+                showLetterDetails(letter);
+            } else if (letter.length > 0) {
+                this.value = '';
+                document.getElementById('letter-details').style.display = 'none';
+            }
+        });
+        
+        // التحقق من أن الحرف عربي
+        function isArabicLetter(char) {
+            const arabicLetters = /[\u0600-\u06FF]/;
+            return arabicLetters.test(char);
+        }
+        
+        // عرض تفاصيل الحرف
+        function showLetterDetails(letter) {
+            const letterDetails = document.getElementById('letter-details');
+            const letterTitle = document.getElementById('selected-letter');
+            const letterValue = document.getElementById('letter-value');
+            const letterMeaning = document.getElementById('letter-meaning');
+            
+            letterTitle.textContent = letter;
+            const value = getLetterValue(letter);
+            letterValue.textContent = value;
+            letterMeaning.textContent = getLetterMeaning(letter, value);
+            
+            letterDetails.style.display = 'block';
+            
+            // تأثير ظهور التفاصيل
+            letterDetails.style.animation = 'none';
+            setTimeout(() => {
+                letterDetails.style.animation = 'fadeIn 0.5s ease';
+            }, 10);
+        }
+        
+        // حساب قيمة الحرف حسب حساب الجمل
+        function getLetterValue(letter) {
+            const abjadValues = {
+                'ا': 1, 'ب': 2, 'ج': 3, 'د': 4, 'ه': 5, 'و': 6,
+                'ز': 7, 'ح': 8, 'ط': 9, 'ي': 10, 'ك': 20, 'ل': 30,
+                'م': 40, 'ن': 50, 'س': 60, 'ع': 70, 'ف': 80, 'ص': 90,
+                'ق': 100, 'ر': 200, 'ش': 300, 'ت': 400, 'ث': 500,
+                'خ': 600, 'ذ': 700, 'ض': 800, 'ظ': 900, 'غ': 1000,
+                'ء': 1, 'ؤ': 6, 'ئ': 10, 'ى': 10, 'ة': 5
+            };
+            
+            return abjadValues[letter] || 'غير معروف';
+        }
+        
+        // معاني الحروف (مكتملة لكل الحروف)
+        function getLetterMeaning(letter, value) {
+            const meanings = {
+                'ا': `حرف الألف (القيمة: ${value}) - يرمز إلى البدايات الجديدة، القيادة، الوحدة والاستقلال. في علم الأعداد، الألف تمثل الطاقة الإبداعية والقدرة على البدء بمشاريع جديدة.`,
+                'ب': `حرف الباء (القيمة: ${value}) - يرمز إلى البيوت، الملاجئ، والأمان. يدل على الشخصية الحنونة التي تهتم بالآخرين وتوفر لهم الدعم العاطفي.`,
+                'ج': `حرف الجيم (القيمة: ${value}) - يرمز إلى الجمال، الجلال، والجود. يدل على الشخصية الكريمة التي تحب العطاء وتقديم المساعدة.`,
+                'د': `حرف الدال (القيمة: ${value}) - يرمز إلى الدلال، الدعة، والراحة. يدل على الشخصية التي تبحث عن الاستقرار والسلام الداخلي.`,
+                'ه': `حرف الهاء (القيمة: ${value}) - يرمز إلى الهوية، الهيبة، والهندام. يدل على الشخصية الواعية لذاتها والتي تهتم بالمظهر الخارجي.`,
+                'و': `حرف الواو (القيمة: ${value}) - يرمز إلى الود، الوفاء، والوئام. يدل على الشخصية الاجتماعية التي تحب تكوين الصداقات.`,
+                'ز': `حرف الزاي (القيمة: ${value}) - يرمز إلى الزينة، الزهو، والزخرفة. يدل على الشخصية التي تحب الجمال والفنون.`,
+                'ح': `حرف الحاء (القيمة: ${value}) - يرمز إلى الحكمة، الحلم، والحماية. يدل على الشخصية الحكيمة التي تتخذ قراراتها بعد تفكير عميق.`,
+                'ط': `حرف الطاء (القيمة: ${value}) - يرمز إلى الطموح، الطيبة، والطهارة. يدل على الشخصية الطموحة التي تسعى للأفضل.`,
+                'ي': `حرف الياء (القيمة: ${value}) - يرمز إلى اليد، اليقين، واليمين. يدل على الشخصية القوية التي تثق بقدراتها.`,
+                'ك': `حرف الكاف (القيمة: ${value}) - يرمز إلى الكرم، الكفاءة، والكمال. يدل على الشخصية الكفؤة التي تنجز أعمالها بإتقان.`,
+                'ل': `حرف اللام (القيمة: ${value}) - يرمز إلى اللطف، اللباقة، واللمسة الأخيرة. يدل على الشخصية الدبلوماسية التي تجيد التعامل مع الآخرين.`,
+                'م': `حرف الميم (القيمة: ${value}) - يرمز إلى الأمومة، المودة، والمال. يدل على الشخصية العاطفية التي تهتم بالعلاقات الإنسانية.`,
+                'ن': `حرف النون (القيمة: ${value}) - يرمز إلى النور، النجاح، والنضج. يدل على الشخصية الناجحة التي تحقق أهدافها.`,
+                'س': `حرف السين (القيمة: ${value}) - يرمز إلى السرور، السعادة، والسلام. يدل على الشخصية المتفائلة التي تنشر البهجة.`,
+                'ع': `حرف العين (القيمة: ${value}) - يرمز إلى العلو، العظمة، والعلم. يدل على الشخصية القيادية التي تمتلك حكمة كبيرة.`,
+                'ف': `حرف الفاء (القيمة: ${value}) - يرمز إلى الفخر، الفطنة، والفرح. يدل على الشخصية الذكية التي تدرك الأمور بسرعة.`,
+                'ص': `حرف الصاد (القيمة: ${value}) - يرمز إلى الصبر، الصدق، والصمود. يدل على الشخصية الصبورة التي تتحمل الصعاب.`,
+                'ق': `حرف القاف (القيمة: ${value}) - يرمز إلى القوة، القدوة، والقدرة. يدل على الشخصية القوية التي تتحمل المسؤولية.`,
+                'ر': `حرف الراء (القيمة: ${value}) - يرمز إلى الرحمة، الروح، والرباط. يدل على الشخصية الروحانية التي تهتم بالجانب المعنوي.`,
+                'ش': `حرف الشين (القيمة: ${value}) - يرمز إلى الشرف، الشجاعة، والشهامة. يدل على الشخصية الشجاعة التي تدافع عن مبادئها.`,
+                'ت': `حرف التاء (القيمة: ${value}) - يرمز إلى التضحية، التقدم، والتطور. يدل على الشخصية التي تسعى للتطور المستمر.`,
+                'ث': `حرف الثاء (القيمة: ${value}) - يرمز إلى الثبات، الثقة، والثروة. يدل على الشخصية الثابتة على مبادئها.`,
+                'خ': `حرف الخاء (القيمة: ${value}) - يرمز إلى الخلود، الخبرة، والخيال. يدل على الشخصية المبدعة التي تمتلك خيالاً خصباً.`,
+                'ذ': `حرف الذال (القيمة: ${value}) - يرمز إلى الذكاء، الذوق، والذكر. يدل على الشخصية الذكية التي تترك أثراً إيجابياً.`,
+                'ض': `حرف الضاد (القيمة: ${value}) - يرمز إلى الضياء، الضمان، والضخامة. يدل على الشخصية القوية التي توفر الأمان للآخرين.`,
+                'ظ': `حرف الظاء (القيمة: ${value}) - يرمز إلى الظفر، الظهور، والظرف. يدل على الشخصية التي تحب الظهور وتحقيق النجاحات.`,
+                'غ': `حرف الغين (القيمة: ${value}) - يرمز إلى الغنى، الغرام، والغيب. يدل على الشخصية الغامضة التي تحب الأسرار.`,
+                'ء': `حرف الهمزة (القيمة: ${value}) - يرمز إلى القوة المفاجئة، الطاقة الكامنة. يدل على الشخصية التي تمتلك طاقة كامنة تحتاج للتفجير.`,
+                'ؤ': `حرف الواو مع الهمزة (القيمة: ${value}) - يرمز إلى العلاقات العميقة والتواصل الروحي. يدل على الشخصية التي تهتم بالروحانيات.`,
+                'ئ': `حرف الياء مع الهمزة (القيمة: ${value}) - يرمز إلى الذكاء العاطفي والحدس القوي. يدل على الشخصية الحساسة والذكية عاطفياً.`,
+                'ى': `حرف الألف المقصورة (القيمة: ${value}) - يرمز إلى النهايات المفتوحة والإمكانيات غير المحدودة. يدل على الشخصية التي ترى الفرص في كل مكان.`,
+                'ة': `حرف التاء المربوطة (القيمة: ${value}) - يرمز إلى الأنوثة، النعومة، والرقة. يدل على الشخصية الحساسة التي تهتم بالجماليات.`
+            };
+            
+            return meanings[letter] || `حرف ${letter} (القيمة: ${value}) - هذا الحرف يحمل أسراراً عميقة ودلالات روحية عديدة. في علم الحروف، كل حرف يمثل طاقة معينة تؤثر على الشخصية والمصير.`;
+        }
+        
+        // حساب أسرار الأسماء
+        document.getElementById('calculate-letters').addEventListener('click', () => {
+            const name = document.getElementById('name').value.trim();
+            const resultDiv = document.getElementById('letters-result');
+            const output = document.getElementById('letters-output');
+            
+            if (name === '') {
+                output.textContent = 'الرجاء إدخال اسمك';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            // حساب الق��مة العددية للاسم
+            const numericalValue = calculateNumericalValue(name);
+            
+            // تحليل الشخصية بناء على الاسم
+            const personalityAnalysis = analyzePersonality(name);
+            
+            output.innerHTML = `
+                <strong>الاسم:</strong> ${name}<br>
+                <strong>القيمة العددية:</strong> ${numericalValue}<br>
+                <strong>تحليل الشخصية:</strong> ${personalityAnalysis}
+            `;
+            
+            resultDiv.style.display = 'block';
+        });
+        
+        // حساب أسرار الأرقام
+        document.getElementById('calculate-numbers').addEventListener('click', () => {
+            const number = document.getElementById('number').value.trim();
+            const resultDiv = document.getElementById('numbers-result');
+            const output = document.getElementById('numbers-output');
+            
+            if (number === '' || isNaN(number)) {
+                output.textContent = 'الرجاء إدخال رقم صحيح';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            const num = parseInt(number);
+            const numberSecrets = getNumberSecrets(num);
+            
+            output.innerHTML = `
+                <strong>الرقم:</strong> ${num}<br>
+                <strong>الدلالة:</strong> ${numberSecrets.meaning}<br>
+                <strong>في علم الأعداد:</strong> ${numberSecrets.numerology}<br>
+                <strong>نصيحة:</strong> ${numberSecrets.advice}
+            `;
+            
+            resultDiv.style.display = 'block';
+        });
+        
+        // حساب أسرار الأعمار
+        document.getElementById('calculate-age').addEventListener('click', () => {
+            const birthYear = document.getElementById('birth-year').value.trim();
+            let currentYear = document.getElementById('current-year').value.trim();
+            const resultDiv = document.getElementById('age-result');
+            const output = document.getElementById('age-output');
+            
+            if (birthYear === '' || isNaN(birthYear)) {
+                output.textContent = 'الرجاء إدخال سنة ميلاد صحيحة';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            if (currentYear === '') {
+                currentYear = new Date().getFullYear();
+            } else if (isNaN(currentYear)) {
+                output.textContent = 'السنة الحالية يجب أن تكون رقماً';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            const year = parseInt(birthYear);
+            const current = parseInt(currentYear);
+            const age = current - year;
+            
+            if (age < 0 || age > 120) {
+                output.textContent = 'سنة الميلاد غير منطقية';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            const ageSecrets = getAgeSecrets(age);
+            
+            output.innerHTML = `
+                <strong>عمرك:</strong> ${age} سنة<br>
+                <strong>مرحلة الحياة:</strong> ${ageSecrets.lifeStage}<br>
+                <strong>التحديات:</strong> ${ageSecrets.challenges}<br>
+                <strong>الفرص:</strong> ${ageSecrets.opportunities}<br>
+                <strong>نصيحة:</strong> ${ageSecrets.advice}
+            `;
+            
+            resultDiv.style.display = 'block';
+        });
+        
+        // الدوال المساعدة
+        function calculateNumericalValue(name) {
+            const abjadValues = {
+                'ا': 1, 'ب': 2, 'ج': 3, 'د': 4, 'ه': 5, 'و': 6,
+                'ز': 7, 'ح': 8, 'ط': 9, 'ي': 10, 'ك': 20, 'ل': 30,
+                'م': 40, 'ن': 50, 'س': 60, 'ع': 70, 'ف': 80, 'ص': 90,
+                'ق': 100, 'ر': 200, 'ش': 300, 'ت': 400, 'ث': 500,
+                'خ': 600, 'ذ': 700, 'ض': 800, 'ظ': 900, 'غ': 1000,
+                'ء': 1, 'ؤ': 6, 'ئ': 10, 'ى': 10, 'ة': 5,
+                ' ': 0
+            };
+            
+            let total = 0;
+            for (let char of name) {
+                total += abjadValues[char] || 0;
+            }
+            
+            return total;
+        }
+        
+        function analyzePersonality(name) {
+            const length = name.length;
+            const numericalValue = calculateNumericalValue(name);
+            
+            if (numericalValue > 1000) {
+                return "شخصية طموحة وقوية، تميل إلى القيادة وتحقيق الإنجازات الكبيرة. لديها طاقة عالية وقدرة على التأثير في الآخرين.";
+            } else if (numericalValue > 500) {
+                return "شخصية متوازنة، تحب التعلم والتطور، لديها حكمة وذكاء اجتماعي. تميل إلى البحث عن المعرفة والحكمة في الحياة.";
+            } else if (numericalValue > 200) {
+                return "شخصية إبداعية، تميل إلى الفنون والعلاقات الإنسانية، عاطفية وحساسة. لديها قدرة على فهم مشاعر الآخرين والتعاطف معهم.";
+            } else {
+                return "شخصية عملية، واقعية، تهتم بالتفاصيل وتحب النظام والاستقرار. تفضل الخطط الواضحة والأهداف المحددة.";
+            }
+        }
+        
+        function getNumberSecrets(number) {
+            const secrets = {
+                1: {
+                    meaning: "البدايات، القيادة، الاستقلالية",
+                    numerology: "رقم الإبداع ��الثقة بالنفس",
+                    advice: "كن واثقًا من نفسك وابدأ مشاريع جديدة، هذا وقت مناسب للبدايات الجديدة"
+                },
+                2: {
+                    meaning: "التوازن، الشراكة، التعاون",
+                    numerology: "رقم الدبلوماسية والحساسية",
+                    advice: "تعلم العمل مع الآخرين وكن أكثر تعاطفًا، العلاقات ستكون محورية في هذه المرحلة"
+                },
+                3: {
+                    meaning: "التعبير، الإبداع، التواصل",
+                    numerology: "رقم الفنون والتواصل الاجتماعي",
+                    advice: "استخدم مواهبك الإبداعية في التعبير عن نفسك، لا تخف من إظهار إبداعك"
+                },
+                4: {
+                    meaning: "الاستقرار، النظام، العمل الجاد",
+                    numerology: "رقم العملي والمنظم",
+                    advice: "ابنِ أساسات متينة لحياتك وكن منضبطًا، النظام سيقودك إلى النجاح"
+                },
+                5: {
+                    meaning: "التغيير، الحرية، المغامرة",
+                    numerology: "رقم الحرية والتجديد",
+                    advice: "تقبل التغيير وكن منفتحًا على تجارب جديدة، المغامرات ستثري حياتك"
+                },
+                6: {
+                    meaning: "المنزل، الأسرة، المسؤولية",
+                    numerology: "رقم الرعاية والخدمة",
+                    advice: "اهتم بعلاقاتك الأسرية وكن مسؤولاً، الحب والعائلة هم مصدر قوتك"
+                },
+                7: {
+                    meaning: "الحكمة، الروحانية، التحليل",
+                    numerology: "رقم البحث عن الحقيقة",
+                    advice: "خصص وقتًا للتأمل والبحث عن المعرفة، الحكمة ستأتي من الداخل"
+                },
+                8: {
+                    meaning: "النجاح، القوة، الإنجاز المادي",
+                    numerology: "رقم القوة والثروة",
+                    advice: "استخدم قوتك بحكمة وكن عادلاً في تعاملك مع المال، النجاح المادي في انتظارك"
+                },
+                9: {
+                    meaning: "الإنسانية، الختام، العطاء",
+                    numerology: "رقم الحب العالمي والعطاء",
+                    advice: "كن كريمًا وساهم في تحسين العالم من حولك، العطاء سيجلب لك السعادة"
+                }
+            };
+            
+            let reducedNumber = number;
+            while (reducedNumber > 9) {
+                reducedNumber = reducedNumber.toString().split('').reduce((sum, digit) => sum + parseInt(digit), 0);
+            }
+            
+            return secrets[reducedNumber] || {
+                meaning: "غير معروف",
+                numerology: "غير معروف",
+                advice: "جرب رقمًا آخر، كل رقم يحمل رسالة خاصة"
+            };
+        }
+        
+        function getAgeSecrets(age) {
+            if (age < 5) {
+                return {
+                    lifeStage: "مرحلة الطفولة المبكرة",
+                    challenges: "اكتشاف العالم وتعلم الأساسيات",
+                    opportunities: "تطوير المهارات الحركية واللغوية",
+                    advice: "هذه المرحلة حاسمة لتطوير الشخصية، احرص على توفير بيئة آمنة ومحفزة"
+                };
+            } else if (age < 13) {
+                return {
+                    lifeStage: "مرحلة الطفولة",
+                    challenges: "التعلم الأساسي وتكوين الشخصية",
+                    opportunities: "اكتشاف المواهب والاهتمامات",
+                    advice: "شجع الطفل على اكتشاف مواهبه وتجربة أنشطة متنوعة"
+                };
+            } else if (age < 20) {
+                return {
+                    lifeStage: "مرحلة المراهقة",
+                    challenges: "تكوين الهوية والاستقلالية",
+                    opportunities: "التعلم السريع وتجربة أشياء جديدة",
+                    advice: "كن صبوراً مع نفسك، هذه المرحلة انتقالية ومهمة لتشكيل شخصيتك"
+                };
+            } else if (age < 35) {
+                return {
+                    lifeStage: "مرحلة الشباب",
+                    challenges: "بناء المستقبل المهني والعلاقات",
+                    opportunities: "تحقيق الإنجازات وبناء الأسرة",
+                    advice: "استثمر في تعليمك وتطوير مهاراتك، هذه أفضل سنوات البناء"
+                };
+            } else if (age < 50) {
+                return {
+                    lifeStage: "منتصف العمر",
+                    challenges: "تحقيق التوازن بين العمل والأسرة",
+                    opportunities: "التطور المهني والاستقرار المادي",
+                    advice: "حافظ على توازنك بين العمل والحياة الشخصية، ولا تهمل صحتك"
+                };
+            } else if (age < 65) {
+                return {
+                    lifeStage: "مرحلة النضج",
+                    challenges: "التكيف مع التغيرات الجسدية",
+                    opportunities: "توجيه الخبرة لمساعدة الآخرين",
+                    advice: "استفد من خبراتك في إرشاد الأجيال الجديدة، ولا تتوقف عن التعلم"
+                };
+            } else {
+                return {
+                    lifeStage: "مرحلة الشيخوخة",
+                    challenges: "الحفاظ على الصحة والنشاط",
+                    opportunities: "توارث الخبرة والاستمتاع بالإنجازات",
+                    advice: "حافظ على نشاطك البدني والذهني، واستمتع بثمار عمرك من إنجازات"
+                };
+            }
+        }
+    </script>
+</body>
+</html>
